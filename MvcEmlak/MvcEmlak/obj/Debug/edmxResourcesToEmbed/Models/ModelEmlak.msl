@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelEmlakStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Üyeler">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelEmlak.Üye)">
+        <MappingFragment StoreEntitySet="Üyeler">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="İsim" ColumnName="İsim" />
+          <ScalarProperty Name="EPosta" ColumnName="EPosta" />
+          <ScalarProperty Name="Şifre" ColumnName="Şifre" />
+          <ScalarProperty Name="EPostaDoğrulama" ColumnName="EPostaDoğrulama" />
+          <ScalarProperty Name="ÜyelikTarihi" ColumnName="ÜyelikTarihi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emlaklar">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelEmlak.Emlak)">
+        <MappingFragment StoreEntitySet="Emlaklar">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ÜyeId" ColumnName="ÜyeId" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+          <ScalarProperty Name="Adres" ColumnName="Adres" />
+          <ScalarProperty Name="ŞehirId" ColumnName="ŞehirId" />
+          <ScalarProperty Name="Durum" ColumnName="Durum" />
+          <ScalarProperty Name="TipId" ColumnName="TipId" />
+          <ScalarProperty Name="Başlık" ColumnName="Başlık" />
+          <ScalarProperty Name="Görsel" ColumnName="Görsel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModelEmlak.Konut)">
+        <MappingFragment StoreEntitySet="Emlaklar_Konut">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Metrekare" ColumnName="Metrekare" />
+          <ScalarProperty Name="OdaBilgisi" ColumnName="OdaBilgisi" />
+          <ScalarProperty Name="KatBilgisi" ColumnName="KatBilgisi" />
+          <ScalarProperty Name="IsıtmaSistemi" ColumnName="IsıtmaSistemi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModelEmlak.Arsa)">
+        <MappingFragment StoreEntitySet="Emlaklar_Arsa">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Metrekare" ColumnName="Metrekare" />
+          <ScalarProperty Name="İmarlı" ColumnName="İmarlı" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModelEmlak.Dükkan)">
+        <MappingFragment StoreEntitySet="Emlaklar_Dükkan">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Metrekare" ColumnName="Metrekare" />
+          <ScalarProperty Name="Depo" ColumnName="Depo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Şehirler">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelEmlak.Şehir)">
+        <MappingFragment StoreEntitySet="Şehirler">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="İsim" ColumnName="İsim" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipler">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelEmlak.Tip)">
+        <MappingFragment StoreEntitySet="Tipler">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ad" ColumnName="Ad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

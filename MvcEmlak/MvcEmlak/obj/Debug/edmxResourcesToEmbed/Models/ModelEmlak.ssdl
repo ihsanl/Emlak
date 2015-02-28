@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModelEmlak.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ModelEmlakStoreContainer">
+    <EntitySet Name="Üyeler" EntityType="ModelEmlak.Store.Üyeler" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Emlaklar" EntityType="ModelEmlak.Store.Emlaklar" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Şehirler" EntityType="ModelEmlak.Store.Şehirler" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tipler" EntityType="ModelEmlak.Store.Tipler" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Emlaklar_Konut" EntityType="ModelEmlak.Store.Emlaklar_Konut" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Emlaklar_Arsa" EntityType="ModelEmlak.Store.Emlaklar_Arsa" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Emlaklar_Dükkan" EntityType="ModelEmlak.Store.Emlaklar_Dükkan" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ÜyeEmlak" Association="ModelEmlak.Store.ÜyeEmlak">
+      <End Role="Üye" EntitySet="Üyeler" />
+      <End Role="Emlak" EntitySet="Emlaklar" />
+    </AssociationSet>
+    <AssociationSet Name="ŞehirEmlak" Association="ModelEmlak.Store.ŞehirEmlak">
+      <End Role="Şehir" EntitySet="Şehirler" />
+      <End Role="Emlak" EntitySet="Emlaklar" />
+    </AssociationSet>
+    <AssociationSet Name="TipEmlak" Association="ModelEmlak.Store.TipEmlak">
+      <End Role="Tip" EntitySet="Tipler" />
+      <End Role="Emlak" EntitySet="Emlaklar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Konut_inherits_Emlak" Association="ModelEmlak.Store.FK_Konut_inherits_Emlak">
+      <End Role="Emlak" EntitySet="Emlaklar" />
+      <End Role="Konut" EntitySet="Emlaklar_Konut" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Arsa_inherits_Emlak" Association="ModelEmlak.Store.FK_Arsa_inherits_Emlak">
+      <End Role="Emlak" EntitySet="Emlaklar" />
+      <End Role="Arsa" EntitySet="Emlaklar_Arsa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dükkan_inherits_Emlak" Association="ModelEmlak.Store.FK_Dükkan_inherits_Emlak">
+      <End Role="Emlak" EntitySet="Emlaklar" />
+      <End Role="Dükkan" EntitySet="Emlaklar_Dükkan" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Üyeler">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="İsim" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="EPosta" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Şifre" Type="nchar" Nullable="false" MaxLength="32" />
+    <Property Name="EPostaDoğrulama" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="ÜyelikTarihi" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emlaklar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ÜyeId" Type="int" Nullable="false" />
+    <Property Name="Tarih" Type="datetime" Nullable="false" />
+    <Property Name="Fiyat" Type="decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="Adres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ŞehirId" Type="int" Nullable="false" />
+    <Property Name="Durum" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="TipId" Type="int" Nullable="false" />
+    <Property Name="Başlık" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Görsel" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Şehirler">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="İsim" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tipler">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ad" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emlaklar_Konut">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Metrekare" Type="int" Nullable="false" />
+    <Property Name="OdaBilgisi" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="KatBilgisi" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsıtmaSistemi" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emlaklar_Arsa">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Metrekare" Type="int" Nullable="false" />
+    <Property Name="İmarlı" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emlaklar_Dükkan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Metrekare" Type="int" Nullable="false" />
+    <Property Name="Depo" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ÜyeEmlak">
+    <End Role="Üye" Type="ModelEmlak.Store.Üyeler" Multiplicity="1" />
+    <End Role="Emlak" Type="ModelEmlak.Store.Emlaklar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Üye">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emlak">
+        <PropertyRef Name="ÜyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ŞehirEmlak">
+    <End Role="Şehir" Type="ModelEmlak.Store.Şehirler" Multiplicity="1" />
+    <End Role="Emlak" Type="ModelEmlak.Store.Emlaklar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Şehir">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emlak">
+        <PropertyRef Name="ŞehirId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TipEmlak">
+    <End Role="Tip" Type="ModelEmlak.Store.Tipler" Multiplicity="1" />
+    <End Role="Emlak" Type="ModelEmlak.Store.Emlaklar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tip">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emlak">
+        <PropertyRef Name="TipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Konut_inherits_Emlak">
+    <End Role="Emlak" Type="ModelEmlak.Store.Emlaklar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Konut" Type="ModelEmlak.Store.Emlaklar_Konut" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Emlak">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Konut">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Arsa_inherits_Emlak">
+    <End Role="Emlak" Type="ModelEmlak.Store.Emlaklar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Arsa" Type="ModelEmlak.Store.Emlaklar_Arsa" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Emlak">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Arsa">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dükkan_inherits_Emlak">
+    <End Role="Emlak" Type="ModelEmlak.Store.Emlaklar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Dükkan" Type="ModelEmlak.Store.Emlaklar_Dükkan" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Emlak">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Dükkan">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

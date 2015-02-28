@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelEmlak" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Üyeler" EntityType="ModelEmlak.Üye" />
+    <EntitySet Name="Emlaklar" EntityType="ModelEmlak.Emlak" />
+    <EntitySet Name="Şehirler" EntityType="ModelEmlak.Şehir" />
+    <AssociationSet Name="ÜyeEmlak" Association="ModelEmlak.ÜyeEmlak">
+      <End Role="Üye" EntitySet="Üyeler" />
+      <End Role="Emlak" EntitySet="Emlaklar" />
+    </AssociationSet>
+    <AssociationSet Name="ŞehirEmlak" Association="ModelEmlak.ŞehirEmlak">
+      <End Role="Şehir" EntitySet="Şehirler" />
+      <End Role="Emlak" EntitySet="Emlaklar" />
+    </AssociationSet>
+    <EntitySet Name="Tipler" EntityType="ModelEmlak.Tip" />
+    <AssociationSet Name="TipEmlak" Association="ModelEmlak.TipEmlak">
+      <End Role="Tip" EntitySet="Tipler" />
+      <End Role="Emlak" EntitySet="Emlaklar" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Üye">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="İsim" Nullable="false" Unicode="true" MaxLength="50" />
+    <Property Type="String" Name="EPosta" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="Şifre" Nullable="false" MaxLength="32" FixedLength="true" />
+    <Property Type="Boolean" Name="EPostaDoğrulama" Nullable="false" DefaultValue="False" />
+    <Property Type="DateTime" Name="ÜyelikTarihi" Nullable="false" />
+    <NavigationProperty Name="Emlak" Relationship="ModelEmlak.ÜyeEmlak" FromRole="Üye" ToRole="Emlak" />
+  </EntityType>
+  <EntityType Name="Emlak">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="ÜyeId" Nullable="false" />
+    <Property Type="DateTime" Name="Tarih" Nullable="false" />
+    <Property Type="Decimal" Name="Fiyat" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="String" Name="Adres" Nullable="false" Unicode="true" MaxLength="Max" />
+    <Property Type="Int32" Name="ŞehirId" Nullable="false" />
+    <Property Type="Boolean" Name="Durum" Nullable="false" DefaultValue="False" />
+    <NavigationProperty Name="Üye" Relationship="ModelEmlak.ÜyeEmlak" FromRole="Emlak" ToRole="Üye" />
+    <NavigationProperty Name="Şehir" Relationship="ModelEmlak.ŞehirEmlak" FromRole="Emlak" ToRole="Şehir" />
+    <Property Type="Int32" Name="TipId" Nullable="false" />
+    <Property Type="String" Name="Başlık" Nullable="false" />
+    <Property Type="Binary" Name="Görsel" />
+    <NavigationProperty Name="Tip" Relationship="ModelEmlak.TipEmlak" FromRole="Emlak" ToRole="Tip" />
+  </EntityType>
+  <EntityType Name="Şehir">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="İsim" Nullable="false" Unicode="true" MaxLength="50" />
+    <NavigationProperty Name="Emlak" Relationship="ModelEmlak.ŞehirEmlak" FromRole="Şehir" ToRole="Emlak" />
+  </EntityType>
+  <EntityType Name="Konut" BaseType="ModelEmlak.Emlak">
+    <Property Type="Int32" Name="Metrekare" Nullable="false" />
+    <Property Type="String" Name="OdaBilgisi" Nullable="false" Unicode="true" MaxLength="50" />
+    <Property Type="String" Name="KatBilgisi" Nullable="false" Unicode="true" MaxLength="50" />
+    <Property Type="String" Name="IsıtmaSistemi" Nullable="false" Unicode="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Arsa" BaseType="ModelEmlak.Emlak">
+    <Property Type="Int32" Name="Metrekare" Nullable="false" />
+    <Property Type="Boolean" Name="İmarlı" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dükkan" BaseType="ModelEmlak.Emlak">
+    <Property Type="Int32" Name="Metrekare" Nullable="false" />
+    <Property Type="Boolean" Name="Depo" Nullable="false" />
+  </EntityType>
+  <Association Name="ÜyeEmlak">
+    <End Type="ModelEmlak.Üye" Role="Üye" Multiplicity="1" />
+    <End Type="ModelEmlak.Emlak" Role="Emlak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Üye">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emlak">
+        <PropertyRef Name="ÜyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ŞehirEmlak">
+    <End Type="ModelEmlak.Şehir" Role="Şehir" Multiplicity="1" />
+    <End Type="ModelEmlak.Emlak" Role="Emlak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Şehir">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emlak">
+        <PropertyRef Name="ŞehirId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tip">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Ad" Nullable="false" />
+    <NavigationProperty Name="Emlak" Relationship="ModelEmlak.TipEmlak" FromRole="Tip" ToRole="Emlak" />
+  </EntityType>
+  <Association Name="TipEmlak">
+    <End Type="ModelEmlak.Tip" Role="Tip" Multiplicity="1" />
+    <End Type="ModelEmlak.Emlak" Role="Emlak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tip">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emlak">
+        <PropertyRef Name="TipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
